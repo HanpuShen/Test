@@ -17,15 +17,13 @@
 # Load necessary libraries
 library(gee)
 library(MASS)
-
 compute_AIC <- function(model) {
   k <- length(coef(model))
   L <- sum(dbinom(model$y, size = 1, prob = model$fitted.values, log = TRUE))
   AIC <- 2*k - 2*L
   return(AIC)
 }
-
-# Define the function
+#' @export
 variable_selection_gee <- function(data, response, id, family = binomial, maxit = 25) {
   # Initialize variables
   variables <- names(data)[-match(response, names(data))]
